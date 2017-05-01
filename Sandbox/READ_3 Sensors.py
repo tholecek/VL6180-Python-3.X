@@ -2,12 +2,12 @@
 # Assumes i2c addresses have been change prior to run
 
 import sys, time
-
+import i2c_Renumber
 from ST_VL6180X import VL6180X
 
 
 #Initialize and report Sensor 0
-sensor0_i2cid = 0x10
+sensor0_i2cid = 0x28
 sensor0 = VL6180X(sensor0_i2cid)
 sensor0.get_identification()
 if sensor0.idModel != 0xB4:
@@ -39,15 +39,17 @@ else:
 sensor2.default_settings()
 #Finish Initialize Sensor 2
 # Quick Test Code To read TOF sensor
-
-for i in range(10):
+for i in range(0,20):
     L0 = int(sensor0.get_distance())
-    print("Sensor 29 reports ",L0,"mm")
+    time.sleep(0.002)
     L1 = int(sensor1.get_distance())
-    print("Sensor 32 reports ",L1,"mm")
+    time.sleep(0.002)
     L2 = int(sensor2.get_distance())
-    print("Sensor 35 reports ",L2,"mm\n")
-    time.sleep(1)
+    time.sleep(0.002)
+    print("     ",L1,"mm\n")
+    print(L0,"mm       ",L2,"mm\n\n\n")
+    time.sleep(0.1)
+    
 
 #Test results show code was successful reading both sensors
 #27APR17 TAH
